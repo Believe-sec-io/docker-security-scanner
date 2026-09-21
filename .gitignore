@@ -1,0 +1,21 @@
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+
+# Rapports generes
+scan-*.json
+rapport*.html
+rapport*.md
+*.tar
+
+# Secrets locaux / IDE
+.env
+.env.*
+.vscode/
+.idea/

@@ -1,0 +1,2 @@
+# Dépendances de test uniquement (le scanner lui-même = stdlib).
+pytest>=7.0

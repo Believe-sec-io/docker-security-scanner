@@ -1,0 +1,23 @@
+name: CI — Docker Security Scanner
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verifier le code
+        run: python -m compileall docker_scanner.py scanner tests
+      - name: Lancer les tests
+        run: python -m unittest discover -s tests -v
+      - name: Scan de l'exemple vulnerable (doit echouer sur HIGH)
+        run: python docker_scanner.py --dockerfile examples/insecure/Dockerfile --fail-on high --format json -o scan-insecure.json || true
+      - name: Scan de l'exemple durci (doit passer)
+        run: python docker_scanner.py --dockerfile examples/secure/Dockerfile --context examples/secure --fail-on high
