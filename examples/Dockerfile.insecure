@@ -1,0 +1,24 @@
+# Intentionally insecure Dockerfile, used by the examples and the tests.
+# Every instruction below maps to at least one DF- rule.
+FROM ubuntu:latest
+
+ENV DB_PASSWORD=SuperSecret123
+ENV API_TOKEN="${API_TOKEN}"
+ARG NPM_TOKEN=npm_9f2b41c8deadbeef
+
+ADD https://example.com/install.sh /tmp/install.sh
+
+RUN apt-get update && apt-get install -y curl openssh-server sudo python3-pip
+RUN curl -fsSL https://get.example.com/root.sh | sh
+RUN chmod -R 777 /app
+RUN pip3 install flask requests
+
+COPY .env /app/.env
+COPY keys/id_rsa /root/.ssh/id_rsa
+COPY app /app
+
+EXPOSE 22 2375 8080
+
+USER root
+
+CMD flask run --host 0.0.0.0

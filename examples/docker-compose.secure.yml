@@ -1,0 +1,58 @@
+# Hardened Compose file: the reference that must produce zero findings.
+services:
+  api:
+    image: ghcr.io/example/api:1.4.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      DATABASE_URL: ${DATABASE_URL}
+    secrets:
+      - db_password
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 200
+    ports:
+      - "127.0.0.1:8000:8000"
+    tmpfs:
+      - /tmp
+    volumes:
+      - api-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+  worker:
+    image: ghcr.io/example/worker:1.4.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    mem_limit: 256m
+    cpus: 0.5
+    volumes:
+      - api-data:/data
+    healthcheck:
+      test: ["CMD", "python", "-m", "worker.health"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+
+secrets:
+  db_password:
+    external: true
+
+volumes:
+  api-data:
+    driver: local

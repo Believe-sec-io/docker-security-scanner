@@ -1,0 +1,19 @@
+{
+  "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"],
+  "tls": false,
+  "tlsverify": false,
+  "insecure-registries": ["registry.internal:5000", "10.0.0.7:5000"],
+  "live-restore": false,
+  "userland-proxy": true,
+  "icc": true,
+  "iptables": false,
+  "seccomp-profile": "unconfined",
+  "log-driver": "json-file",
+  "log-opts": {},
+  "default-ulimits": {
+    "nofile": { "Name": "nofile", "Soft": -1, "Hard": -1 }
+  },
+  "proxies": {
+    "http-proxy": "http://build-bot:ci-token-9f2b41@proxy.internal:3128"
+  }
+}

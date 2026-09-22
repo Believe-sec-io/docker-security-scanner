@@ -1,0 +1,20 @@
+{
+  "hosts": ["unix:///var/run/docker.sock"],
+  "tls": true,
+  "tlsverify": true,
+  "authorization-plugins": ["authz-broker"],
+  "userns-remap": "default",
+  "no-new-privileges": true,
+  "userland-proxy": false,
+  "live-restore": true,
+  "icc": false,
+  "iptables": true,
+  "seccomp-profile": "/etc/docker/seccomp.json",
+  "log-driver": "json-file",
+  "log-opts": { "max-size": "10m", "max-file": "3" },
+  "default-ulimits": {
+    "nofile": { "Name": "nofile", "Soft": 4096, "Hard": 8192 },
+    "nproc": { "Name": "nproc", "Soft": 2048, "Hard": 4096 }
+  },
+  "insecure-registries": []
+}

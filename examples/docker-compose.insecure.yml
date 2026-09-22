@@ -1,0 +1,33 @@
+# Intentionally insecure Compose file, used by the examples and the tests.
+# Every service below maps to at least one CP- rule.
+services:
+  api:
+    image: myapp:latest
+    privileged: true
+    network_mode: host
+    pid: host
+    ipc: host
+    user: root
+    cap_add:
+      - SYS_ADMIN
+      - NET_ADMIN
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    environment:
+      - DB_PASSWORD=hunter2-hunter2
+      - JWT_SECRET=2f9c1d4b8a7e6f5d4c3b2a1908172635
+      - API_TOKEN
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /:/host
+    ports:
+      - "5432:5432"
+      - "6379:6379"
+
+  worker:
+    build: .
+    depends_on:
+      - api
+    volumes:
+      - ./data:/data

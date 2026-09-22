@@ -1,0 +1,56 @@
+[
+  {
+    "Id": "9f2b41c8deadbeef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "Name": "/api",
+    "Config": {
+      "Hostname": "9f2b41c8dead",
+      "User": "root",
+      "Image": "myapp:latest",
+      "Env": [
+        "PATH=/usr/local/bin:/usr/bin:/bin",
+        "DB_PASSWORD=hunter2-hunter2",
+        "API_TOKEN=9f2b41c8deadbeef0123456789abcdef",
+        "DATABASE_URL=${DATABASE_URL}"
+      ],
+      "Healthcheck": null
+    },
+    "HostConfig": {
+      "Privileged": true,
+      "NetworkMode": "host",
+      "PidMode": "host",
+      "IpcMode": "host",
+      "ReadonlyRootfs": false,
+      "CapAdd": ["SYS_ADMIN", "NET_ADMIN"],
+      "CapDrop": [],
+      "SecurityOpt": ["seccomp=unconfined", "apparmor=unconfined"],
+      "Memory": 0,
+      "NanoCpus": 0,
+      "CpuShares": 0,
+      "Binds": [
+        "/var/run/docker.sock:/var/run/docker.sock",
+        "/:/host"
+      ],
+      "Devices": [
+        {
+          "PathOnHost": "/dev/sda",
+          "PathInContainer": "/dev/sda",
+          "CgroupPermissions": "rwm"
+        }
+      ]
+    },
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "/var/run/docker.sock",
+        "Destination": "/var/run/docker.sock",
+        "RW": true
+      },
+      {
+        "Type": "bind",
+        "Source": "/",
+        "Destination": "/host",
+        "RW": true
+      }
+    ]
+  }
+]

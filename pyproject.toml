@@ -1,27 +1,61 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "docker-security-scanner"
 version = "1.0.0"
-description = "Audit de securite hors-ligne des Dockerfiles, images et conteneurs (stdlib uniquement)."
+description = "Audit Dockerfiles, Compose files, daemon.json and running containers for insecure configuration."
 readme = "README.md"
-license = { text = "MIT" }
 requires-python = ">=3.9"
-keywords = ["docker", "security", "scanner", "devsecops", "cis"]
+license = { text = "MIT" }
+authors = [{ name = "Believe", email = "bombilebelieve@gmail.com" }]
+keywords = ["docker", "container", "security", "scanner", "linter", "cis-benchmark", "hardening"]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 5 - Production/Stable",
   "Environment :: Console",
   "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
   "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Topic :: Security",
   "Topic :: System :: Systems Administration",
+  "Typing :: Typed",
 ]
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov>=4.1"]
+
+[project.urls]
+Homepage = "https://github.com/Believe-sec-io/docker-security-scanner"
+Issues = "https://github.com/Believe-sec-io/docker-security-scanner/issues"
+Changelog = "https://github.com/Believe-sec-io/docker-security-scanner/blob/main/CHANGELOG.md"
 
 [project.scripts]
-docker-security-scanner = "docker_scanner:main"
+docker-security-scanner = "src.cli:entry_point"
+
+[tool.setuptools]
+packages = ["src"]
+py-modules = ["main"]
 
 [tool.pytest.ini_options]
+minversion = "7.0"
 testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = ["error::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = ["src/__init__.py"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["pragma: no cover", "raise NotImplementedError", "if TYPE_CHECKING:"]

@@ -1,2 +1,2 @@
-# Dépendances de test uniquement (le scanner lui-même = stdlib).
-pytest>=7.0
+# Runtime dependency of the Compose and Dockerfile scanners.
+PyYAML>=6.0

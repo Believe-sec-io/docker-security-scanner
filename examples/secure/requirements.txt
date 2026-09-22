@@ -1,3 +1,0 @@
-# Dependances de l'exemple durci (versions figees)
-# pip install -r requirements.txt
-# (aucune dependance externe : l'exemple utilise uniquement la bibliotheque standard)

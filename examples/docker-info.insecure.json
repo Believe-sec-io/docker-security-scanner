@@ -1,0 +1,11 @@
+{
+  "ServerVersion": "27.1.1",
+  "OperatingSystem": "Ubuntu 24.04.1 LTS",
+  "LoggingDriver": "json-file",
+  "LoggingDriverOpts": {},
+  "InsecureRegistries": ["registry.internal:5000"],
+  "LiveRestoreEnabled": false,
+  "SecurityOptions": [],
+  "Icc": true,
+  "UsernsRemap": "false"
+}

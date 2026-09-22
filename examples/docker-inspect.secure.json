@@ -1,0 +1,50 @@
+[
+  {
+    "Id": "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b",
+    "Name": "/api",
+    "Config": {
+      "Hostname": "1a2b3c4d5e6f",
+      "User": "10001:10001",
+      "Image": "ghcr.io/example/api@sha256:6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "Env": [
+        "PATH=/usr/local/bin:/usr/bin:/bin",
+        "DB_PASSWORD=${DB_PASSWORD}",
+        "DATABASE_URL=/run/secrets/database_url"
+      ],
+      "Healthcheck": {
+        "Test": ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"],
+        "Interval": 30000000000,
+        "Timeout": 3000000000,
+        "Retries": 3
+      }
+    },
+    "HostConfig": {
+      "Privileged": false,
+      "NetworkMode": "bridge",
+      "PidMode": "",
+      "IpcMode": "private",
+      "ReadonlyRootfs": true,
+      "CapAdd": [],
+      "CapDrop": ["ALL"],
+      "SecurityOpt": ["no-new-privileges:true", "apparmor=docker-default"],
+      "Memory": 536870912,
+      "NanoCpus": 1000000000,
+      "CpuShares": 512,
+      "Binds": []
+    },
+    "Mounts": [
+      {
+        "Type": "volume",
+        "Source": "api-data",
+        "Destination": "/data",
+        "RW": true
+      },
+      {
+        "Type": "bind",
+        "Source": "/etc/hosts",
+        "Destination": "/etc/hosts",
+        "RW": false
+      }
+    ]
+  }
+]

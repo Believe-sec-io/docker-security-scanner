@@ -1,21 +1,39 @@
-# Fichiers Python
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
-dist/
+.eggs/
 build/
+dist/
 .venv/
 venv/
+env/
+
+# Tests and tooling caches
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+junit*.xml
+*.sarif
+report.json
+report.md
 
-# Rapports generes
-scan-*.json
-rapport*.html
-rapport*.md
-*.tar
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# Secrets locaux / IDE
+# Local configuration and logs
+*.log
 .env
 .env.*
-.vscode/
-.idea/
+!.env.example
+docker-compose.override.yml
