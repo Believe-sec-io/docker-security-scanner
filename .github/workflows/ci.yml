@@ -55,9 +55,12 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt
       - name: Scan the example configurations
+        # The samples under examples/ are deliberately insecure: their findings
+        # are expected, so the demo step must never fail the build. --fail-on
+        # none overrides the default (high) which would exit 1 on DF-006/DF-005.
         run: |
-          python main.py examples/Dockerfile.insecure --no-color --format console
-          python main.py examples/docker-compose.insecure.yml --no-color --format markdown
+          python main.py examples/Dockerfile.insecure --no-color --fail-on none --format console
+          python main.py examples/docker-compose.insecure.yml --no-color --fail-on none --format markdown
       - name: Fail if a hardened example is not clean
         run: |
           python main.py examples/Dockerfile.secure --no-color --fail-on low
