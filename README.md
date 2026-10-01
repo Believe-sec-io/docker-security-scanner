@@ -1,5 +1,9 @@
 # docker-security-scanner
 
+[![CI](https://github.com/Believe-sec-io/docker-security-scanner/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Believe-sec-io/docker-security-scanner/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 **Audit the security configuration of a Docker setup — before it reaches a host.**
 
 `docker-security-scanner` is a static analyser for the four places where a
